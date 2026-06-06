@@ -1,0 +1,365 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ─── Dark mode: fires on data-theme="dark" attribute on <html> ─── */
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ─── Static design tokens (don't change between themes) ─── */
+@theme {
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans:    Inter, system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --animate-marquee:   marquee 32s linear infinite;
+  --animate-pulse-dot: pulse-dot 2.5s ease-in-out infinite;
+}
+
+/* ─── Dynamic tokens: CSS vars → Tailwind utility classes ─── */
+@theme inline {
+  /* shadcn tokens (HSL so opacity modifiers work: bg-primary/80) */
+  --color-background:          hsl(var(--background));
+  --color-foreground:          hsl(var(--foreground));
+  --color-card:                hsl(var(--card));
+  --color-card-foreground:     hsl(var(--card-foreground));
+  --color-popover:             hsl(var(--popover));
+  --color-popover-foreground:  hsl(var(--popover-foreground));
+  --color-primary:             hsl(var(--primary));
+  --color-primary-foreground:  hsl(var(--primary-foreground));
+  --color-secondary:           hsl(var(--secondary));
+  --color-secondary-foreground:hsl(var(--secondary-foreground));
+  --color-muted:               hsl(var(--muted));
+  --color-muted-foreground:    hsl(var(--muted-foreground));
+  --color-accent:              hsl(var(--accent));
+  --color-accent-foreground:   hsl(var(--accent-foreground));
+  --color-destructive:         hsl(var(--destructive));
+  --color-border:              hsl(var(--border));
+  --color-input:               hsl(var(--input));
+  --color-ring:                hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Hinglaj brand tokens */
+  --color-brand:         var(--hi-brand);
+  --color-brand-dark:    var(--hi-brand-on-dark);
+  --color-canvas:        var(--hi-canvas);
+  --color-parchment:     var(--hi-parchment);
+  --color-ink:           var(--hi-ink);
+  --color-ink-80:        var(--hi-ink-80);
+  --color-ink-48:        var(--hi-ink-48);
+  --color-tile-dark:     var(--hi-tile-dark);
+  --color-tile-dark2:    var(--hi-tile-dark2);
+  --color-tile-dark3:    var(--hi-tile-dark3);
+  --color-hairline:      var(--hi-hairline);
+  --color-divider:       var(--hi-divider);
+  --color-on-dark:       var(--hi-on-dark);
+  --color-muted-dark:    var(--hi-muted-on-dark);
+}
+
+/* ─── Light mode (default CSS values) ─── */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 30 83% 36%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 30 83% 36%;
+  --radius: 0.625rem;
+
+  /* Hinglaj brand — light mode */
+  --hi-brand:         #b45309;    /* amber-700 for light mode */
+  --hi-brand-on-dark: #b45309;    /* accent stays amber-700 on light bg */
+  --hi-canvas:        #ffffff;
+  --hi-parchment:     #f5f5f7;    /* Apple parchment */
+  --hi-ink:           #1d1d1f;    /* Apple near-black */
+  --hi-ink-80:        #333333;
+  --hi-ink-48:        #6e6e73;    /* Apple muted ink */
+
+  /* Surface tokens — LIGHT values (swapped from dark naming) */
+  --hi-tile-dark:     #ffffff;    /* section bg → white */
+  --hi-tile-dark2:    #f5f5f7;    /* alt section bg → Apple parchment */
+  --hi-tile-dark3:    #ebebeb;    /* tertiary → soft gray */
+  --hi-hairline:      rgba(0,0,0,0.10);   /* subtle border */
+  --hi-divider:       rgba(0,0,0,0.05);   /* divider / hover bg */
+  --hi-on-dark:       #1d1d1f;    /* primary text on light bg */
+  --hi-muted-on-dark: #6e6e73;   /* muted text on light bg */
+}
+
+/* ─── Dark mode ─── */
+[data-theme="dark"] {
+  --background: 240 6% 11%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 43 96% 51%;
+  --primary-foreground: 240 10% 3.9%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --border: 240 3.7% 18%;
+  --input: 240 3.7% 18%;
+  --ring: 43 96% 51%;
+
+  --hi-brand:         #f59e0b;
+  --hi-brand-on-dark: #fbbf24;
+  --hi-canvas:        #1c1c1e;
+  --hi-parchment:     #252528;
+  --hi-ink:           #f2f2f2;
+  --hi-ink-80:        #d4d4d8;
+  --hi-ink-48:        #71717a;
+  --hi-tile-dark:     #0d0d0d;
+  --hi-tile-dark2:    #161618;
+  --hi-tile-dark3:    #111113;
+  --hi-hairline:      rgba(255,255,255,0.12);
+  --hi-divider:       rgba(255,255,255,0.06);
+  --hi-on-dark:       #f5f5f7;
+  --hi-muted-on-dark: #71717a;
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--hi-ink);
+  background: var(--hi-tile-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(245,158,11,0.2); }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--hi-hairline); border-radius: 2px; }
+
+/* ─── Keyframes ─── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%     { opacity: 0.4; transform: scale(1.5); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Component layer ─── */
+@layer components {
+
+  /* ── Layout ── */
+  .page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .page-container { padding-left: 28px; padding-right: 28px; }
+  }
+
+  @media (min-width: 1024px) {
+    .page-container { padding-left: 40px; padding-right: 40px; }
+  }
+
+  /* ── Scroll reveal ── */
+  .sr {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+                transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .sr.in   { opacity: 1; transform: none; }
+  .sr-d1   { transition-delay: 0.08s; }
+  .sr-d2   { transition-delay: 0.16s; }
+  .sr-d3   { transition-delay: 0.24s; }
+  .sr-d4   { transition-delay: 0.32s; }
+  .sr-d5   { transition-delay: 0.40s; }
+
+  /* ── Product card hover bar ── */
+  .product-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--hi-brand-on-dark);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .product-card:hover::after { transform: scaleX(1); }
+
+  /* ── Pill buttons ── */
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s, background 0.2s;
+  }
+  .btn-pill:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--hi-brand-on-dark);
+    color: #111;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--hi-on-dark);
+    border: 1.5px solid var(--hi-hairline);
+  }
+  .btn-outline:hover { border-color: var(--hi-ink-48); background: var(--hi-divider); }
+
+  .btn-outline-amber {
+    background: transparent;
+    color: var(--hi-brand-on-dark);
+    border: 1.5px solid rgba(180,83,9,0.35);
+  }
+  [data-theme="dark"] .btn-outline-amber {
+    border-color: rgba(245,158,11,0.4);
+  }
+  .btn-outline-amber:hover { background: rgba(180,83,9,0.06); border-color: rgba(180,83,9,0.6); }
+  [data-theme="dark"] .btn-outline-amber:hover { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.7); }
+
+  /* ── Spec lines (product card data rows) ── */
+  .spec-line {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--hi-divider);
+    align-items: start;
+  }
+  .spec-line:last-child { border-bottom: none; }
+
+  /* ── Step connector line ── */
+  .step-connector {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--hi-brand-on-dark), transparent);
+    opacity: 0.3;
+  }
+
+  /* ── Card watermark text ── */
+  .card-wm {
+    position: absolute;
+    bottom: -4px;
+    right: 8px;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.06);
+    pointer-events: none;
+    user-select: none;
+    transition: -webkit-text-stroke-color 0.3s;
+  }
+  [data-theme="dark"] .card-wm {
+    -webkit-text-stroke-color: rgba(255,255,255,0.06);
+  }
+  .product-card:hover .card-wm {
+    -webkit-text-stroke-color: rgba(0,0,0,0.12);
+  }
+  [data-theme="dark"] .product-card:hover .card-wm {
+    -webkit-text-stroke-color: rgba(255,255,255,0.12);
+  }
+
+  /* ── Section headers ── */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hi-brand-on-dark);
+    margin-bottom: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background: var(--hi-brand-on-dark);
+    border-radius: 1px;
+  }
+
+  .section-title {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--hi-on-dark);
+    margin-bottom: 14px;
+  }
+
+  .section-title-dark {
+    color: var(--hi-ink);
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--hi-muted-on-dark);
+    max-width: 520px;
+  }
+
+  .section-sub-dark {
+    color: var(--hi-ink-48);
+  }
+}
